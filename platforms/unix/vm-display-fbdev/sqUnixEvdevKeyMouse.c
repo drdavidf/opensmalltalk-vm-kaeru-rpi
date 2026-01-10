@@ -101,6 +101,7 @@ static void enqueueKeyPressEvent(int key, int down, int modifiers);
 static void enqueueKeyCharEvent(int key, int modifiers);
 static void setModifierKeyCode(struct input_event* evt, int squeakKeyCode); 
 static void setCharKeyCode(int eventValue, int squeakKeyCode, int modifiers); 
+static void clearModifierState(); 
 #ifdef DEBUG_EVENTS
 static void printKeyState(int kind); 
 #endif
@@ -317,6 +318,9 @@ static void setKeyCode(struct input_event* evt) {
   if (evt->type != EV_KEY) 
 	return;
 
+  updateModifierState(evt); 
+  setSqueakModifierState();
+
   lastKeyCode = evt->code;
   modifierBits = getModifierState();
   squeakKeyCode = keyCode2keyValue( lastKeyCode,
@@ -346,13 +350,10 @@ static void setModifierKeyCode(struct input_event* evt, int squeakKeyCode) {
 
 /* for a modifier we update the modifier state  and record up/down events, but not char events. */
 
-  updateModifierState(evt); 
-  setSqueakModifierState();
-	
   if (evt->value < 2) 
   	enqueueKeyPressEvent(squeakKeyCode,
 	               evt->value, 
-		       getModifierState());
+		       getModifierState() | (evt->value == 1 ? OptionKeyBit : 0));
 }
 
 static void setCharKeyCode(int eventValue, int squeakKeyCode,int modifiers) {
@@ -455,32 +456,33 @@ static void updateModifierState(struct input_event* evt)
 /* left and right keys down and up must be tracked separately */
 {  /* harmless if not modifier key */
   if (evt->type == EV_KEY) {
-    if ((evt->value == 1) || (evt->value == 2)) { /* button down|repeat */
+    if ((evt->value == 1) || (evt->value == 2)) { /* key down|repeat */
 #ifdef DEBUG_EVENTS
       printEvtModifierKey(evt);
 #endif
+
       switch (evt->code) {
-	case KEY_LEFTMETA:   leftAdjuncts  |= CommandKeyBit; break;
-	case KEY_LEFTALT:    leftAdjuncts  |= OptionKeyBit;  break;
+	case KEY_LEFTMETA:   leftAdjuncts  |= OptionKeyBit;  break;
+	case KEY_LEFTALT:    leftAdjuncts  |= CommandKeyBit; break;
 	case KEY_LEFTCTRL:   leftAdjuncts  |= CtrlKeyBit;    break;
 	case KEY_LEFTSHIFT:  leftAdjuncts  |= ShiftKeyBit;   break;
-	case KEY_RIGHTMETA:  rightAdjuncts |= CommandKeyBit; break;
-	case KEY_RIGHTALT:   rightAdjuncts |= OptionKeyBit;  break;
+	case KEY_RIGHTMETA:  rightAdjuncts |= OptionKeyBit;  break;
+	case KEY_RIGHTALT:   rightAdjuncts |= CommandKeyBit; break;
 	case KEY_RIGHTCTRL:  rightAdjuncts |= CtrlKeyBit;    break;
 	case KEY_RIGHTSHIFT: rightAdjuncts |= ShiftKeyBit;   break;
 	default: break;
 	}
-     } else if (evt->value == 0) { /* button up */
+     } else if (evt->value == 0) { /* key up */
 #ifdef DEBUG_EVENTS
        printEvtModifierKey(evt);
 #endif
        switch (evt->code) {
-	case KEY_LEFTMETA:   leftAdjuncts  &= ~CommandKeyBit; break;
-	case KEY_LEFTALT:    leftAdjuncts  &= ~OptionKeyBit;  break;
+	case KEY_LEFTMETA:   leftAdjuncts  &= ~OptionKeyBit; break;
+	case KEY_LEFTALT:    leftAdjuncts  &= ~CommandKeyBit;  break;
 	case KEY_LEFTCTRL:   leftAdjuncts  &= ~CtrlKeyBit;    break;
 	case KEY_LEFTSHIFT:  leftAdjuncts  &= ~ShiftKeyBit;   break;
-	case KEY_RIGHTMETA:  rightAdjuncts &= ~CommandKeyBit; break;
-	case KEY_RIGHTALT:   rightAdjuncts &= ~OptionKeyBit;  break;
+	case KEY_RIGHTMETA:  rightAdjuncts &= ~OptionKeyBit; break;
+	case KEY_RIGHTALT:   rightAdjuncts &= ~CommandKeyBit;  break;
 	case KEY_RIGHTCTRL:  rightAdjuncts &= ~CtrlKeyBit;    break;
 	case KEY_RIGHTSHIFT: rightAdjuncts &= ~ShiftKeyBit;   break;
 	default: break;

@@ -119,8 +119,8 @@ int i;
     shiftKey[KEY_RIGHTBRACE] = 0x7D; /* '}' */
     baseKey[KEY_ENTER]       = 0x0D; /* CR: Carriage Return */
     shiftKey[KEY_ENTER]      = 0x0D;
-    baseKey[KEY_LEFTCTRL]    = KEY_LEFTCTRL; /* XK_Control_L;*/
-    shiftKey[KEY_LEFTCTRL]   = KEY_LEFTCTRL; /* XK_Control_L;*/
+    baseKey[KEY_LEFTCTRL]    = 222; /* XK_Control_L;*/
+    shiftKey[KEY_LEFTCTRL]   = 222; /* XK_Control_L;*/
     baseKey[KEY_A]      = 0x61; /* 'a' */
     shiftKey[KEY_A]     = 0x41; /* 'A' */
     baseKey[KEY_S]      = 0x73; /* 's' */
@@ -173,8 +173,8 @@ int i;
     shiftKey[KEY_RIGHTSHIFT] = KEY_RIGHTSHIFT; /* XK_Shift_R;*/
     baseKey[KEY_KPASTERISK]  = 0x2A; /* '*' */
     shiftKey[KEY_KPASTERISK] = 0x2A; /* '*' */
-    baseKey[KEY_LEFTALT]    = KEY_LEFTALT; /* XK_Alt_L;*/
-    shiftKey[KEY_LEFTALT]   = KEY_LEFTALT; /* XK_Alt_L;*/
+    baseKey[KEY_LEFTALT]    = 152; /* XK_Alt_L;*/
+    shiftKey[KEY_LEFTALT]   = 152; /* XK_Alt_L;*/
     baseKey[KEY_SPACE]      = 0x20; /* ' ' */
     shiftKey[KEY_SPACE]     = 0x20;
     /*
@@ -276,16 +276,16 @@ int i;
  */
     baseKey[KEY_KPENTER]    = 0x0D; /* ?XK_Return?  ?XK_KP_Enter? */
     shiftKey[KEY_KPENTER]   = 0x0D; /* CR */
-    baseKey[KEY_RIGHTCTRL]  = KEY_RIGHTCTRL; /* XK_Control_R; */
-    shiftKey[KEY_RIGHTCTRL] = KEY_RIGHTCTRL; /* XK_Control_R;*/
+    baseKey[KEY_RIGHTCTRL]  = 221; /* XK_Control_R; */
+    shiftKey[KEY_RIGHTCTRL] = 221; /* XK_Control_R;*/
     baseKey[KEY_KPSLASH]    = 0x2f ; /*XK_slash;  * XK_KP_Divide */
     shiftKey[KEY_KPSLASH]   = 0x2f ; /*XK_slash; *
 *
     baseKey[KEY_SYSRQ]     = KEY_SYSRQ; * XK_Sys_Req; * Print Screen **
     shiftKey[KEY_SYSRQ]    = KEY_SYSRQ; * XK_Sys_Req; *
 */
-    baseKey[KEY_RIGHTALT]  = KEY_RIGHTALT; /* XK_Alt_R;*/
-    shiftKey[KEY_RIGHTALT] = KEY_RIGHTALT; /* XK_Alt_R;*/
+    baseKey[KEY_RIGHTALT]  = 136; /* XK_Alt_R;*/
+    shiftKey[KEY_RIGHTALT] = 136; /* XK_Alt_R;*/
     baseKey[KEY_LINEFEED]  = 0x0A; /* LF: LineFeed; ^J; NB: XK_Linefeed = 0xFF0A */ 
     shiftKey[KEY_LINEFEED] = 0x0A;
     baseKey[KEY_HOME]    =  1; /*XK_Home;*/
