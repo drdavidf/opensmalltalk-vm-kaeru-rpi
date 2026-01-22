@@ -6,8 +6,8 @@ AsynchFilePlugin \
 B2DPlugin \
 BitBltPlugin \
 BMPReadWriterPlugin \
-CroquetPlugin \
-HostWindowPlugin \
+#CroquetPlugin \
+#HostWindowPlugin \
 ZipPlugin \
 DropPlugin \
 DSAPrims \
