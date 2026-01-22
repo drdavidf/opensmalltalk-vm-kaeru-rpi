@@ -18,9 +18,9 @@ UUIDPlugin \
 DESPlugin \
 MD5Plugin \
 SHA2Plugin \
-VectorEnginePlugin \
-PseudoTTYPlugin \
-## CameraPlugin  -- fails on OpenBSD
+VectorEnginePlugin 
+# PseudoTTYPlugin -- fails on RPI
+# CameraPlugin  -- fails on OpenBSD
 # GdbARMPlugin # fails to compile
 # GdbARMv8Plugin # ditto
 
